@@ -4,12 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity
-public class Oko_circuitChauffage {
 
-    @Id
-    @GeneratedValue
-    private String id;
+public class Oko_circuitChauffage {
 
     private String L_flowtemp_set;
     private String L_roomtemp_act;
@@ -120,11 +116,21 @@ public class Oko_circuitChauffage {
         this.time_prg = time_prg;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getId() {
-        return id;
+    @Override
+    public String toString() {
+        return "Oko_circuitChauffage{" +
+                "L_flowtemp_set='" + L_flowtemp_set + '\'' +
+                ", L_roomtemp_act='" + L_roomtemp_act + '\'' +
+                ", L_roomtemp_set='" + L_roomtemp_set + '\'' +
+                ", L_state='" + L_state + '\'' +
+                ", L_statetext='" + L_statetext + '\'' +
+                ", mode_auto='" + mode_auto + '\'' +
+                ", name='" + name + '\'' +
+                ", oekomode='" + oekomode + '\'' +
+                ", temp_heat='" + temp_heat + '\'' +
+                ", temp_setback='" + temp_setback + '\'' +
+                ", temp_vacation='" + temp_vacation + '\'' +
+                ", time_prg='" + time_prg + '\'' +
+                '}';
     }
 }

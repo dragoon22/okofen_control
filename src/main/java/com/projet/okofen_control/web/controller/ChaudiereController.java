@@ -2,7 +2,9 @@ package com.projet.okofen_control.web.controller;
 
 import com.google.gson.Gson;
 import com.projet.okofen_control.dao.Oko_userDAO;
+import com.projet.okofen_control.model.Oko_chaudiere;
 import com.projet.okofen_control.model.Oko_circuitChauffage;
+import com.projet.okofen_control.web.util.OkoUtil;
 import io.swagger.annotations.Api;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -19,41 +21,30 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-@Api( description="API pour es opérations CRUD sur les produits.")
+@Api()
 @RestController
-
 public class ChaudiereController {
     String url = "http://192.168.1.111:4321/vuaO";
-    private final String USER__AGENT = "Mozilla/5.0";
 
     @Autowired
     private Oko_userDAO oko_userDAO;
 
     @RequestMapping(value = "/chaudiere", method = RequestMethod.GET)
-    public JSONObject getAllParametersValue() throws IOException, ParseException {
+    public String getAllParametersValue() throws IOException, ParseException {
         URL obj = new URL(url+"/all");
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-        //optional default is GET
         con.setRequestMethod("GET");
-
-        //add request header
+        String USER__AGENT = "Mozilla/5.0";
         con.setRequestProperty("User-Agent", USER__AGENT);
-
         int responseCode = con.getResponseCode();
         System.out.println("\nSending 'GET' request to URL : " + url);
         System.out.println("Response Code : " + responseCode);
-
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()));
-        String inputLine;
         JSONParser parser = new JSONParser();
         JSONObject object= (JSONObject) parser.parse(in);
-        Oko_circuitChauffage oko_circuitChauffage=new Gson().fromJson(String.valueOf(object.get()),Oko_circuitChauffage.class);
+        Oko_chaudiere chaudiere= OkoUtil.getBeanFromJson(object);
         in.close();
-
-        //print result
-        System.out.println(object.toString());
-        return object;
+        return chaudiere.toString();
     }
 }
