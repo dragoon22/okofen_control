@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
-public class Oko_pompeCirculation {
+public class Oko_donneeStirling {
     @Id
     @GeneratedValue
     private int id;

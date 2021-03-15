@@ -1,7 +1,18 @@
 package com.projet.okofen_control.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+
+@Entity
 public class Oko_circuitECS {
-  private String time_prg;
+    @Id
+    @GeneratedValue
+    private int id;
+    @JsonIgnore
+    @ManyToOne(targetEntity=Oko_chaudiere.class, fetch = FetchType.LAZY)
+    private Oko_chaudiere chaudiere;
+    private String time_prg;
   private String oekomode;
   private String sensor_off;
   private String mode_dhw;
@@ -162,6 +173,14 @@ public class Oko_circuitECS {
 
     public void setUse_boiler_heat(String use_boiler_heat) {
         this.use_boiler_heat = use_boiler_heat;
+    }
+
+    public Oko_chaudiere getChaudiere() {
+        return chaudiere;
+    }
+
+    public void setChaudiere(Oko_chaudiere chaudiere) {
+        this.chaudiere = chaudiere;
     }
 
     @Override

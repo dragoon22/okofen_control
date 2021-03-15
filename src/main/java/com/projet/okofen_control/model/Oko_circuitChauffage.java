@@ -1,12 +1,17 @@
 package com.projet.okofen_control.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.*;
 
+@Entity
 public class Oko_circuitChauffage {
-
+    @Id
+    @GeneratedValue
+    private int id;
+    @JsonIgnore
+    @ManyToOne(targetEntity=Oko_chaudiere.class, fetch = FetchType.LAZY)
+    private Oko_chaudiere chaudiere;
     private String L_flowtemp_set;
     private String L_roomtemp_act;
     private String L_roomtemp_set;
@@ -116,6 +121,13 @@ public class Oko_circuitChauffage {
         this.time_prg = time_prg;
     }
 
+    public Oko_chaudiere getChaudiere() {
+        return chaudiere;
+    }
+
+    public void setChaudiere(Oko_chaudiere chaudiere) {
+        this.chaudiere = chaudiere;
+    }
     @Override
     public String toString() {
         return "Oko_circuitChauffage{" +

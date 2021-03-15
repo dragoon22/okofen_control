@@ -1,7 +1,17 @@
 package com.projet.okofen_control.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+
+@Entity
 public class Oko_conditionMeteo {
-  private String cloud_limit;
+    @Id
+    @GeneratedValue
+    private int id;
+    @JsonIgnore
+    @ManyToOne(targetEntity=Oko_chaudiere.class, fetch = FetchType.LAZY)
+    private Oko_chaudiere chaudiere;   private String cloud_limit;
   private String oekomode;
   private String L_temp	;
   private String L_forecast_cloud;
@@ -137,6 +147,13 @@ public class Oko_conditionMeteo {
         this.hysteresys = hysteresys;
     }
 
+    public Oko_chaudiere getChaudiere() {
+        return chaudiere;
+    }
+
+    public void setChaudiere(Oko_chaudiere chaudiere) {
+        this.chaudiere = chaudiere;
+    }
     @Override
     public String toString() {
         return "Oko_conditionMeteo{" +
